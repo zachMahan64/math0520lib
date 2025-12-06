@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(math0520lib SHARED
     ${CMAKE_CURRENT_SOURCE_DIR}/src/mat.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/vec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/vec_operations.cpp
 )
 
 target_include_directories(math0520lib
