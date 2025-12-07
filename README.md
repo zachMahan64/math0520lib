@@ -1,8 +1,8 @@
-### math0520lib, my bonus project made for Brown's Math 0520 Linear Algebra Course
+### math0520lib, bonus project made for Brown's Math 0520 Linear Algebra Course
 - The library is header-only, see the [demo](demo/demo.cpp) for usage.
-- The library contains a custom matrix class, `Mat`, that supports various row operations including an RREF method. There are also free functions
+- The library contains a matrix class, `Mat`, that supports various row operations including an RREF method. There are also free functions
 for scaling, dotting, and crossing vectors, as well as element-wise addition in [include/math0520lib](math0520lib/include/math0520lib). The matrix class is fully generic and interops cleanly with all standard numeric types (int, float, double, etc) and also interops with std::vector. It can also be initialized intuitively with initializer lists. The free functions for manipulating vectors also work generically with std::vectors and std::arrays containing standard numeric types.
-- Using this library is as simple as including the header files in another project
+- Using this library is as simple as including the [header files](math0520lib/include/math0520lib) in another project.
 - Here is the output of the demo code:
 ```
 Hello, math0520! This is my demo for a basic C++ linear algebra library.
@@ -65,7 +65,7 @@ vector v: {1, 2, 3}, scaled by 5:
 {5, 10, 15}
 
 Back to matrices. We can do fun operations too!
-let C =
+let C = 
 {  1.00,   3.00,   5.00,   1.00,   2.00}
 {  6.00,   1.00,   3.00,   2.00,   2.00}
 { -4.00,   6.00,   2.00,   1.00,   8.00}
@@ -79,7 +79,7 @@ C after operation R3 <== -R4
 { -5.00,   7.00,   3.00,   4.00,   1.00}
 
 Next demo!
-let D =
+let D = 
 {  1,   1,   1,   1,   1}
 {  2,   2,   2,   2,   2}
 {  3,   3,   3,   3,   3}
@@ -93,7 +93,7 @@ D after operation R1 <== (R2 + R4):
 {  2,   2,   2,   2,   2}
 
 Another row operation demo!
-let E =
+let E = 
 {  1,   1,   1,   1,   1}
 {  1,   1,   1,   1,   1}
 {  1,   1,   1,   1,   1}
@@ -106,4 +106,3 @@ E after operation R1 <== (5*R2 + 5*R3):
 {  1,   1,   1,   1,   1}
 {  1,   1,   1,   1,   1}
 ```
-- This README can be generated using the create-readme.sh script included in the repo.
