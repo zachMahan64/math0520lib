@@ -10,8 +10,7 @@ void run_demo() {
          << '\n';
 
     // demo 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    cout << "Here's a big matrix of all zeroes, which is easy to initialze:"
-         << '\n';
+    cout << "Here's a big matrix of all zeroes, which is easy to initialze:" << '\n';
     Mat<12, 11, float> mat_big;
     std::cout << mat_big << '\n';
 
@@ -25,7 +24,7 @@ void run_demo() {
 
     // demo 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     cout << "Now, let's take the rref of some matrix!" << "\n";
-    Mat<3, 3, int> mat({{-8, 2, 5}, {4, 7, 1}, {3, 8, 9}});
+    Mat<3, 3, int> mat({{8, 2, 5}, {4, 7, 1}, {3, 8, 9}});
     std::cout << "original:\n" << mat << '\n';
     std::cout << "rref:\n" << mat.make_rref() << '\n';
 
@@ -41,4 +40,10 @@ void run_demo() {
     mat1.rref(); // this modifies the matrix and turns it into its rref in
                  // place
     std::cout << "rref:\n" << mat1 << '\n';
+
+    // demo 4 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    std::cout << "we can also change the precision of floating point matrices.\n";
+    std::cout << "here's that same matrix but more *precise*:\n";
+    mat1.set_print_precision(5);
+    std::cout << mat1;
 }

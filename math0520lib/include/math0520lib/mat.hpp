@@ -36,14 +36,12 @@ class Mat {
 
     Mat(const std::initializer_list<std::initializer_list<T>>& lists) {
         if (lists.size() != H) {
-            throw std::runtime_error(
-                "invalid row length when constructing Mat");
+            throw std::runtime_error("invalid row length when constructing Mat");
         }
         size_t i = 0;
         for (const auto& list : lists) {
             if (list.size() != W) {
-                throw std::runtime_error(
-                    "invalid column length when constructing Mat");
+                throw std::runtime_error("invalid column length when constructing Mat");
             }
 
             rows[i] = std::vector<T>(list.begin(), list.end());
@@ -55,8 +53,7 @@ class Mat {
     // col)
     T at(size_t row, size_t col) {
         if (row >= H || col >= W) {
-            throw std::out_of_range(
-                "out of bounds reading matrix entry: Mat::at");
+            throw std::out_of_range("out of bounds reading matrix entry: Mat::at");
         }
         return rows.at(row).at(col);
     }
@@ -64,8 +61,7 @@ class Mat {
     // swap specified zero-indexed rows (a, b)
     void swap_rows(size_t a, size_t b) {
         if (a >= H || b >= H) {
-            throw std::out_of_range(
-                "out of bounds reading matrix entry: Mat::swap_rows");
+            throw std::out_of_range("out of bounds reading matrix entry: Mat::swap_rows");
         }
         std::vector<T> temp = std::move(rows.at(b));
         rows.at(b) = std::move(rows.at(a));
@@ -77,8 +73,7 @@ class Mat {
     // each paramter should reference a zero-indexed row
     void copy_row_to_from(size_t to, size_t from) {
         if (from >= H || to >= H) {
-            throw std::out_of_range(
-                "out of bounds reading matrix entry: Mat::copy_row");
+            throw std::out_of_range("out of bounds reading matrix entry: Mat::copy_row");
         }
         rows.at(to) = rows.at(from);
     }
@@ -100,8 +95,9 @@ class Mat {
                 const auto& elem = row[i];
 
                 if constexpr (std::is_floating_point_v<T>) {
-                    sstr << std::setw(6) << std::fixed
-                         << std::setprecision(this->print_precision) << elem;
+                    // for floating point, account for print_precision
+                    sstr << std::setw(4 + print_precision) << std::fixed
+                         << std::setprecision(print_precision) << elem;
                 } else {
                     sstr << std::setw(3) << elem;
                 }
