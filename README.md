@@ -63,7 +63,7 @@ vector v: {1, 2, 3}, scaled by 5:
 {5, 10, 15}
 
 Back to matrices. We can do fun operations too!
-let C =
+let C = 
 {  1.00,   3.00,   5.00,   1.00,   2.00}
 {  6.00,   1.00,   3.00,   2.00,   2.00}
 { -4.00,   6.00,   2.00,   1.00,   8.00}
@@ -77,7 +77,7 @@ C after operation R3 <== -R4
 { -5.00,   7.00,   3.00,   4.00,   1.00}
 
 Next demo!
-let D =
+let D = 
 {  1,   1,   1,   1,   1}
 {  2,   2,   2,   2,   2}
 {  3,   3,   3,   3,   3}
@@ -91,7 +91,7 @@ D after operation R1 <== (R2 + R4):
 {  2,   2,   2,   2,   2}
 
 Another row operation demo!
-let E =
+let E = 
 {  1,   1,   1,   1,   1}
 {  1,   1,   1,   1,   1}
 {  1,   1,   1,   1,   1}
@@ -105,19 +105,19 @@ E after operation R1 <== (5*R2 + 5*R3):
 {  1,   1,   1,   1,   1}
 
 Now, let's multiply some matrices!
-let F =
+let F = 
 {  2,   3,   4,   5,   6}
 {  7,   8,   9,   8,   7}
 {  6,   5,   4,   3,   2}
 {  1,   2,   3,   4,   5}
 {  6,   7,   8,   9,   8}
-let I5 =
+let I5 = 
 {  1,   0,   0,   0,   0}
 {  0,   1,   0,   0,   0}
 {  0,   0,   1,   0,   0}
 {  0,   0,   0,   1,   0}
 {  0,   0,   0,   0,   1}
-F * I5 =
+F * I5 = 
 {  2,   3,   4,   5,   6}
 {  7,   8,   9,   8,   7}
 {  6,   5,   4,   3,   2}
@@ -126,3 +126,14 @@ F * I5 =
 Determinant of F: 0
 So it's not invertable.
 ```
+### Building the Demo
+- Make sure CMake, Make, and a C++ compiler are installed on your system
+```bash
+git clone https://github.com/zachMahan64/math0520lib.git
+cd math0520lib
+mkdir build
+cd build
+cmake ..
+cd ..
+cmake --build build
+./build/demo```
