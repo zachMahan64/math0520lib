@@ -27,7 +27,8 @@ template <class T>
     requires std::is_integral_v<T> || std::is_floating_point_v<T>
 [[nodiscard]] T dot(const std::vector<T>& v, const std::vector<T>& u) {
     if (v.size() != u.size()) {
-        throw std::logic_error("lengths of vectors do not match when taking dot product");
+        throw std::logic_error(
+            "lengths of vectors do not match when taking dot product");
     }
     T accum = 0;
     for (size_t i = 0; i < v.size(); i++) {
@@ -54,9 +55,11 @@ template <NumericVec A, NumericVec B>
     if (a.size() != 3 || b.size() != 3) {
         throw std::logic_error("attempted to cross vectors that are not 3D");
     }
-    using T = std::common_type_t<typename A::value_type, typename B::value_type>;
+    using T =
+        std::common_type_t<typename A::value_type, typename B::value_type>;
     // cross logic, always return a std::array for efficiency/simplicity
-    return std::array<T, 3>{(a[1] * b[2]) - (a[2] * b[1]), (a[2] * b[0]) - (a[0] * b[2]),
+    return std::array<T, 3>{(a[1] * b[2]) - (a[2] * b[1]),
+                            (a[2] * b[0]) - (a[0] * b[2]),
                             (a[0] * b[1]) - (a[1] * b[0])};
 }
 

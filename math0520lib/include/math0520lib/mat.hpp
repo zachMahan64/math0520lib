@@ -36,12 +36,14 @@ class Mat {
 
     Mat(const std::initializer_list<std::initializer_list<T>>& lists) {
         if (lists.size() != H) {
-            throw std::runtime_error("invalid row length when constructing Mat");
+            throw std::runtime_error(
+                "invalid row length when constructing Mat");
         }
         size_t i = 0;
         for (const auto& list : lists) {
             if (list.size() != W) {
-                throw std::runtime_error("invalid column length when constructing Mat");
+                throw std::runtime_error(
+                    "invalid column length when constructing Mat");
             }
 
             rows[i] = std::vector<T>(list.begin(), list.end());
@@ -53,7 +55,8 @@ class Mat {
     // col)
     T at(size_t row, size_t col) {
         if (row >= H || col >= W) {
-            throw std::out_of_range("out of bounds reading matrix entry: Mat::at");
+            throw std::out_of_range(
+                "out of bounds reading matrix entry: Mat::at");
         }
         return rows.at(row).at(col);
     }
@@ -61,7 +64,8 @@ class Mat {
     // swap specified zero-indexed rows (a, b)
     void swap_rows(size_t a, size_t b) {
         if (a >= H || b >= H) {
-            throw std::out_of_range("out of bounds reading matrix entry: Mat::swap_rows");
+            throw std::out_of_range(
+                "out of bounds reading matrix entry: Mat::swap_rows");
         }
         std::vector<T> temp = std::move(rows.at(b));
         rows.at(b) = std::move(rows.at(a));
@@ -71,11 +75,26 @@ class Mat {
     // copy a row to the first paramter, from the second paramter
     //
     // each paramter should reference a zero-indexed row
-    void copy_row_to_from(size_t to, size_t from) {
-        if (from >= H || to >= H) {
-            throw std::out_of_range("out of bounds reading matrix entry: Mat::copy_row");
+    void row_into_from(size_t into, size_t from) {
+        if (from >= H || into >= H) {
+            throw std::out_of_range(
+                "out of bounds reading matrix entry: Mat::copy_row");
         }
-        rows.at(to) = rows.at(from);
+        rows.at(into) = rows.at(from);
+    }
+
+    // copy a row to the first paramter, from the second paramter with a scalar
+    // applied
+    //
+    // each paramter should reference a zero-indexed row
+    void row_into_from(size_t into, size_t from, T scalar) {
+        if (from >= H || into >= H) {
+            throw std::out_of_range(
+                "out of bounds reading matrix entry: Mat::copy_row");
+        }
+        auto temp = rows.at(from);
+        scale(temp, scalar);
+        rows.at(into) = std::move(temp);
     }
 
     // get the row count of the matrix
