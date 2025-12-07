@@ -13,6 +13,8 @@
 #include <type_traits>
 #include <vector>
 
+namespace m52l {
+
 template <class T>
 concept IsString = requires(T s) {
     { s.c_str() };
@@ -102,19 +104,19 @@ std::string vec_to_string(const T& vec) {
     sstr << '}';
     return sstr.str();
 }
-
-// overload allowing easy cout interop with our NumericVec concept
-template <NumericVec T>
-std::ostream& operator<<(std::ostream& os, const T& vec) {
-    os << vec_to_string(vec);
-    return os;
-}
-
 template <NumericVec T>
 void scale(T& vec, typename T::value_type scalar) {
     for (auto& entry : vec) {
         entry *= scalar;
     }
+}
+} // namespace m52l
+
+// overload allowing easy cout interop with our NumericVec concept
+template <m52l::NumericVec T>
+std::ostream& operator<<(std::ostream& os, const T& vec) {
+    os << m52l::vec_to_string(vec);
+    return os;
 }
 
 #endif // !MATH0520LIB_VEC_HPP

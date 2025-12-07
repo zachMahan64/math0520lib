@@ -15,6 +15,8 @@
 #include <type_traits>
 #include <vector>
 
+namespace m52l {
+
 /**
  * simple matrix class supporting basic row operations
  *
@@ -225,7 +227,7 @@ class Mat {
     /**
      * calculate and return the rref of this matrix
      *
-     * I did not come up with this algorithm; I adapted it from here:
+     * adapted from:
      * https://stackoverflow.com/questions/31756413/solving-a-simple-matrix-in-row-reduced-form-in-c
      */
     void rref() {
@@ -282,4 +284,26 @@ std::ostream& operator<<(std::ostream& os, const Mat<H, W, T>& mat) {
     os << mat.to_string();
     return os;
 }
+
+/**
+ * matrix multiplication
+ * number of rows of first mat must equal number of columns of the second mat
+ *
+ * adapted from: https://www.geeksforgeeks.org/c/c-matrix-multiplication/
+ */
+template <size_t A, size_t B, size_t C, size_t D, typename T>
+Mat<A, D, T> multiply(const Mat<A, B, T>& m1, const Mat<C, D, T>& m2) {
+    Mat<A, D, T> result;
+    for (int i = 0; i < A; i++) {
+        for (int j = 0; j < D; j++) {
+            result[i][j] = 0;
+
+            for (int k = 0; k < D; k++) {
+                result[i][j] += m1[i][k] * m2[k][j];
+            }
+        }
+    }
+    return result;
+}
+} // namespace m52l
 #endif // !MATH0520LIB_MAT_HPP

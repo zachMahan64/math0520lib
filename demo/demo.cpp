@@ -9,6 +9,7 @@
 #include <iostream>
 
 void run_demo() {
+    using namespace m52l;
     using std::cout;
     cout << "Hello, math0520! This is my demo for a basic C++ linear "
             "algebra library."
