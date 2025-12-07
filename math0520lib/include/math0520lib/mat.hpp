@@ -256,7 +256,7 @@ class Mat {
     /**
      * creates a new rref of this matrix by value
      */
-    [[nodiscard("use .rref() if you want to take the rref of a Mat inplace")]]
+    [[nodiscard("use .rref() if you want to take the rref of a Mat in place")]]
     Mat make_rref() const {
         Mat copy;
         copy.rows = this->rows; // copy rows
@@ -276,6 +276,67 @@ class Mat {
         }
         this->print_precision = (int)precision;
     }
+
+    /**
+     * calculates the determinant of the matrix
+     *
+     * adapted from:
+     * https://labex.io/tutorials/c-compute-the-determinant-of-a-matrix-in-c-435157
+     */
+  private:
+    T det(Mat& matrix, T n) {
+        T determinant = 0;
+        Mat submatrix;
+
+        // Base case for 1x1 matrix
+        if (n == 1) {
+            return matrix.rows[0][0];
+        }
+
+        // Base case for 2x2 matrix
+        if (n == 2) {
+            return (matrix.rows[0][0] * matrix.rows[1][1]) -
+                   (matrix.rows[0][1] * matrix.rows[1][0]);
+        }
+
+        // Recursive case for larger matrices
+        int sign = 1;
+        for (int k = 0; k < n; k++) {
+            // Create submatrix
+            int subi = 0;
+            for (int i = 1; i < n; i++) {
+                int subj = 0;
+                for (int j = 0; j < n; j++) {
+                    if (j == k) {
+                        continue;
+                    }
+                    submatrix.rows[subi][subj] = matrix.rows[i][j];
+                    subj++;
+                }
+                subi++;
+            }
+
+            // Recursive calculation
+            determinant += sign * matrix.rows[0][k] * det(submatrix, n - 1);
+            sign = -sign;
+        }
+
+        return determinant;
+    }
+
+  public:
+    T det() {
+        static_assert(H == W, "When finding determinant, matrix must be "
+                              "square: Mat::determinant\n");
+        return det(*this, H);
+    }
+
+    /**
+     * friend function for multiplication
+     */
+    template <size_t A, size_t B, size_t C, size_t D, typename T1>
+    friend Mat<A, D, T1> multiply(const Mat<A, B, T1>& m1,
+                                  const Mat<C, D, T1>& m2);
 };
 
 // overload allowing easy cout interop with the Mat class
@@ -293,13 +354,17 @@ std::ostream& operator<<(std::ostream& os, const Mat<H, W, T>& mat) {
  */
 template <size_t A, size_t B, size_t C, size_t D, typename T>
 Mat<A, D, T> multiply(const Mat<A, B, T>& m1, const Mat<C, D, T>& m2) {
+    if (A != D) {
+        throw std::logic_error("num rows of first matrix do not match num cols "
+                               "of second matrix when multiplying\n");
+    }
     Mat<A, D, T> result;
     for (int i = 0; i < A; i++) {
         for (int j = 0; j < D; j++) {
-            result[i][j] = 0;
+            result.rows[i][j] = 0;
 
             for (int k = 0; k < D; k++) {
-                result[i][j] += m1[i][k] * m2[k][j];
+                result.rows[i][j] += m1.rows[i][k] * m2.rows[k][j];
             }
         }
     }

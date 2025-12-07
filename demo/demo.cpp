@@ -96,12 +96,11 @@ void run_demo() {
 
     // demo 8 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     cout << "Another row operation demo!" << "\n";
-    // let's use 16-bit integers for funsies
-    Mat<5, 5, int16_t> E = {{1, 1, 1, 1, 1},
-                            {1, 1, 1, 1, 1},
-                            {1, 1, 1, 1, 1},
-                            {1, 1, 1, 1, 1},
-                            {1, 1, 1, 1, 1}};
+    Mat<5, 5, long> E = {{1, 1, 1, 1, 1},
+                         {1, 1, 1, 1, 1},
+                         {1, 1, 1, 1, 1},
+                         {1, 1, 1, 1, 1},
+                         {1, 1, 1, 1, 1}};
     cout << "let E = \n";
 
     cout << E;
@@ -109,5 +108,27 @@ void run_demo() {
     // this method takes parameters (dest, src_a, scale_a, src_b, scale_b):
     E.set_row_to_sum_of_rows(0, 1, 5, 2, 5);
     cout << "E after operation R1 <== (5*R2 + 5*R3):\n";
-    cout << E;
+    cout << E << '\n';
+
+    // demo 9 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    cout << "Now, let's multiply some matrices!" << "\n";
+    // let's use 16-bit integers for funsies
+    Mat<5, 5, int> F = {{2, 3, 4, 5, 6},
+                        {7, 8, 9, 8, 7},
+                        {6, 5, 4, 3, 2},
+                        {1, 2, 3, 4, 5},
+                        {6, 7, 8, 9, 8}};
+    cout << "let F = \n";
+    cout << F;
+    Mat<5, 5, int> I5 = {{1, 0, 0, 0, 0},
+                         {0, 1, 0, 0, 0},
+                         {0, 0, 1, 0, 0},
+                         {0, 0, 0, 1, 0},
+                         {0, 0, 0, 0, 1}};
+    cout << "let I5 = \n";
+    cout << I5;
+    cout << "F * I5 = \n";
+    cout << multiply(F, I5);
+    cout << "Determinant of F: " << F.det() << '\n';
+    cout << "So it's not invertable." << '\n';
 }
