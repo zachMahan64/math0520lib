@@ -11,5 +11,4 @@ echo "### Building the Demo"
 echo "- Make sure CMake, Make, and a C++ compiler are installed on your system"
 echo "\`\`\`bash";
 printf "git clone https://github.com/zachMahan64/math0520lib.git\ncd math0520lib\nmkdir build\ncd build\ncmake ..\ncd ..\ncmake --build build\n./build/demo";
-echo "\`\`\`";
 } > README.md
